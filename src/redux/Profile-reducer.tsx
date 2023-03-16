@@ -1,6 +1,32 @@
 import { DialogType, MessageType, PostType, StatePropsType } from "..";
-import { ActionsTypes, AddPostType } from "./state";
+import { ActionsTypes, AddPostType } from "./redux-store";
 
+let initialState = { 
+    PostsData: [{
+
+      id: '1',
+      message: 'It is my first post!',
+      likesCount: '23'
+    },
+    {
+      id: '2',
+      message: 'Hello, How are you ?',
+      likesCount: '333'
+
+    },
+    {
+      id: '3',
+      message: '????',
+      likesCount: '45'
+    },
+    {
+      id: '4',
+      message: 'Hallo',
+      likesCount: '100'
+    },
+    ],
+    newPostText: ""
+  }
 
 
 export type ProfileReducerPropsType = {
@@ -11,7 +37,7 @@ export type ProfileReducerPropsType = {
 }
 
 
-const profileReducer = (state: ProfileReducerPropsType, action: ActionsTypes) => {
+const profileReducer = (state: ProfileReducerPropsType = initialState, action: ActionsTypes):ProfileReducerPropsType => {
 
 
   switch (action.type) {

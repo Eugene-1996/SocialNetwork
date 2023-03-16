@@ -1,10 +1,13 @@
 
 import './index.css';
-import store from './redux/state';
+// import  { store, AppStateType, ReducersType } from './redux/redux-store';
+import  { AppReduxStateType, RootStateType, store } from './redux/redux-store';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import  { Provider } from './StoreContext';
 
 
 export type AppStateTypes = {
@@ -63,16 +66,17 @@ export type StatePropsType = {
         newMessageBody: string
       }
       sidebar: {},
+    
     }
+
   
   
 
-let rerenderEntireTree = (state: StatePropsType) => {
-  console.log({state});
+let rerenderEntireTree = (state: AppReduxStateType) => {
   ReactDOM.render(
-  <App  store={store}  
-  />,document.getElementById('root')
-
+    <Provider store={store}>
+    <App />
+  </Provider>, document.getElementById('root')
   );
 }
 // type renderPropsType = {
@@ -83,7 +87,10 @@ let rerenderEntireTree = (state: StatePropsType) => {
 
 rerenderEntireTree(store.getState())
 
-store.subscribe(rerenderEntireTree)
+store.subscribe(() => {
+  let state  = store.getState()
+  rerenderEntireTree(state)
+})
 
 // ReactDOM.render(<App PostsData={PostsData} DialogsData={DialogsData} MessagesData={MessagesData}/>,document.getElementById('root')
 // );

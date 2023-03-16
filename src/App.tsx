@@ -9,12 +9,16 @@ import News from './pages/News/News';
 import Music from './pages/Music/Music';
 import Settings from './pages/Settings/Settings';
 import Friends from './pages/Friends/Friends';
-import { ActionsTypes, RootStateType } from './redux/state';
 import { StatePropsType } from '.';
+import DialogsContainer from './pages/Dialogs/DialogsContainer';
+import { ActionsTypes, AppReduxStateType, rootReducer } from './redux/redux-store';
+import { ProfileReducerPropsType } from './redux/Profile-reducer';
+import { DialogsReducerPropsType } from './redux/Dialogs-reducer';
+import { EmptyObject } from 'redux';
 
 
 type StoreTypes = {
-  store: RootStateType
+    // state : AppReduxStateType
 }
 export type AppStateTypesAll = StoreTypes | AppStateTypes2
 
@@ -61,8 +65,8 @@ function App(props: StoreTypes) {
         <Header />
         <Navigation />
         <div className='app-wrapper-content'>
-          <Route path='/profile' render={() => <Profile PostsData={props.store.getState().ProfilePage.PostsData} newPostText={props.store._state.ProfilePage.newPostText} dispatch={props.store.dispatch.bind(props.store)} />} />
-          <Route path='/dialogs' render={() => <Dialogs store={props.store} dispatch={props.store.dispatch.bind(props.store)} />} />
+          <Route path='/profile' render={() => <Profile  />} />
+          <Route path='/dialogs' render={() => <DialogsContainer  />} />
           <Route path='/news' component={News} />
           <Route path='/music' component={Music} />
           <Route path='/settings' component={Settings} />

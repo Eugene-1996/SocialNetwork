@@ -1,15 +1,10 @@
 import { DialogType, MessageType, PostType } from ".."
-import { ActionsTypes } from "./state"
+import { ActionsTypes } from "./redux-store"
 
 
-// export type SidebarReducerPropsType = {
+let initialState = { sidebar: {} }
 
-   
-  
-//   }
-
-
-const sidebarReducer = (state: {}, action: ActionsTypes) => {
+const sidebarReducer = (state: {} = initialState, action: ActionsTypes) => {
     return state
 }
 

@@ -1,21 +1,23 @@
 import React from 'react';
 import { AppStateTypes2 } from '../../App';
-import { ActionsTypes } from '../../redux/state';
+import { AppReduxStateType } from '../../redux/redux-store';
+import MyPostsContainer from './MyPosts/MyPostContainer';
 import MyPosts from './MyPosts/MyPosts';
 // import classes from './profile-style.module.css'
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
-export type MyPostsTypes = {
-    PostsData: Array<PostType>
-    newPostText: string
-    dispatch: (action: ActionsTypes) => void
+// export type MyPostsTypes = {
+//     state: AppReduxStateType
+    // PostsData: Array<PostType>
+    // newPostText: string
+    // dispatch: (action: ActionsTypes) => void
     // addPost: () => void 
     // updateNewPostText: (newText: string) => void 
   
   
     // RefObject<HTMLInputElement>
     
-  }
+//   }
   export type PostType = {
     id: string 
     message: string
@@ -23,7 +25,7 @@ export type MyPostsTypes = {
   
   }
 
-const Profile = (props: MyPostsTypes) => {
+const Profile = () => {
 
 
 
@@ -31,7 +33,7 @@ const Profile = (props: MyPostsTypes) => {
         <>
             <div>
                 <ProfileInfo />
-                <MyPosts newPostText={props.newPostText} PostsData={props.PostsData} dispatch={props.dispatch} />
+                <MyPostsContainer  />
             </div>
         </>
     );

@@ -3,22 +3,24 @@ import { AppStateTypes2 } from '../../App';
 import DialogItem from '../../components/DialogItem/DialogItem';
 import Message from '../../components/Message/Message';
 import { addNewMessageBodyCreator, sendMessageCreator } from '../../redux/Dialogs-reducer';
-import { ActionsTypes, RootStateType,  } from '../../redux/state';
+import { AppReduxStateType, RootStateType } from '../../redux/redux-store';
 import { PostType } from '../Profile/Profile';
 
 import classes from './dialogs-style.module.css'
 
 
 type PropsType = {
-    store: RootStateType
-    dispatch: (action: ActionsTypes) => void
+    dialogsPage: RootStateType
+    // dispatch: (action: ActionsTypes) => void
+    updateNewMesageBody: (body: string) => void
+    addNewMessage: () => void
 }
 
 export type MyDialogsMessagesTypes = {
     DialogsData: Array<DialogType>
     MessagesData: Array<MessageType>
     newMessageBody: string
-    dispatch: (action: ActionsTypes) => void
+    // dispatch: (action: ActionsTypes) => void
 
 }
 export type DialogType = {
@@ -33,23 +35,24 @@ export type MessageType = {
 
 const Dialogs = (props: PropsType) => {
 
-    
+    let state = props.dialogsPage.getState().MessagePage
 
-    let dialogsElements = (props.store.getState().MessagePage.DialogsData).map(d => <DialogItem name={d.name} id={d.id} />)
-    let messagesElements = (props.store.getState().MessagePage.MessagesData).map(m => <Message message={m.message} id={m.id} />)
-    let newMessageBody = props.store.getState().MessagePage.newMessageBody
-console.log(props.store.getState())
+    let dialogsElements = (state.DialogsData).map(d => <DialogItem name={d.name} id={d.id} />)
+    let messagesElements = (state.MessagesData).map(m => <Message message={m.message} id={m.id} />)
+    let newMessageBody = state.newMessageBody
+// console.log(props.store.getState())
     // let newMessageElement = React.createRef<HTMLTextAreaElement>()
 
-    let onChangeHandler = (event : ChangeEvent<HTMLTextAreaElement>) => {
+    let onNewMessageChange = (event : ChangeEvent<HTMLTextAreaElement>) => {
         let body = event.currentTarget.value
-    console.log({body})
+        props.updateNewMesageBody(body)
         // let text = newMessageElement.current!.value
-        props.dispatch(addNewMessageBodyCreator(body))
+        // props.dispatch(addNewMessageBodyCreator(body))
         // alert(text)
     }
     const addNewMessage = () => {
-        props.dispatch(sendMessageCreator())
+        props.addNewMessage()
+        // props.dispatch(sendMessageCreator())
     }
 
 
@@ -63,7 +66,7 @@ console.log(props.store.getState())
                 <div>
                     <textarea
                         value={newMessageBody}
-                        onChange={onChangeHandler}
+                        onChange={onNewMessageChange}
                         // placeholder={'Hello'}
                         // ref={newMessageElement}
                     >Text</textarea>

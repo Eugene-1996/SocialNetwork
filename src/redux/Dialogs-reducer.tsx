@@ -1,5 +1,59 @@
 import { DialogType, MessageType } from "..";
-import { ActionsTypes } from "./state";
+import { ActionsTypes } from "./redux-store";
+
+let initialState = {
+  DialogsData: [{
+    id: '1',
+    name: 'Sergey'
+  },
+  {
+    id: '2',
+    name: 'Gena'
+  },
+  {
+    id: '3',
+    name: 'Vadik'
+  },
+  {
+    id: '4',
+    name: 'Oleg'
+  },
+  {
+    id: '5',
+    name: 'Lexa'
+  },
+  {
+    id: '6',
+    name: 'Sveta'
+  },
+  ],
+  MessagesData: [{
+    id: '1',
+    message: 'Hello!'
+  },
+  {
+    id: '2',
+    message: 'How are you ?'
+  },
+  {
+    id: '3',
+    message: '!'
+  },
+  {
+    id: '4',
+    message: '!!!!'
+  },
+  {
+    id: '5',
+    message: 'dhsahfdsh!'
+  },
+  {
+    id: '6',
+    message: 'Helaaaalo!'
+  },
+  ],
+  newMessageBody: 'Рш'
+}
 
 
 
@@ -11,7 +65,7 @@ export type DialogsReducerPropsType = {
 
 
 
-const dialogReducer = (state: DialogsReducerPropsType, action: ActionsTypes) => {
+const dialogReducer = (state: DialogsReducerPropsType = initialState, action: ActionsTypes): DialogsReducerPropsType => {
 
 
     switch (action.type) {
