@@ -1,16 +1,19 @@
 import React, { ChangeEvent, ChangeEventHandler } from 'react';
+import { Redirect } from 'react-router-dom';
 import { AppStateTypes2 } from '../../App';
 import DialogItem from '../../components/DialogItem/DialogItem';
+import Login from '../../components/Login/Login';
 import Message from '../../components/Message/Message';
 import { addNewMessageBodyCreator, sendMessageCreator } from '../../redux/Dialogs-reducer';
-import { AppReduxStateType, RootStateType } from '../../redux/redux-store';
+import { AppReduxStateType, RootStateType, RootStoreType } from '../../redux/redux-store';
 import { PostType } from '../Profile/Profile';
 
 import classes from './dialogs-style.module.css'
+import { DialogsStatePropsType } from './DialogsContainer';
 
 
 type PropsType = {
-    dialogsPage: RootStateType
+    dialogsPage: RootStoreType
     // dispatch: (action: ActionsTypes) => void
     updateNewMesageBody: (body: string) => void
     addNewMessage: () => void
@@ -33,12 +36,12 @@ export type MessageType = {
 }
 
 
-const Dialogs = (props: PropsType) => {
+const Dialogs = (props: DialogsStatePropsType) => {
 
-    let state = props.dialogsPage.getState().MessagePage
+    let state = props.DialogsPage
 
-    let dialogsElements = (state.DialogsData).map(d => <DialogItem name={d.name} id={d.id} />)
-    let messagesElements = (state.MessagesData).map(m => <Message message={m.message} id={m.id} />)
+    let dialogsElements = (state.DialogsData).map((d, index) => <DialogItem key={index} name={d.name} id={d.id} />)
+    let messagesElements = (state.MessagesData).map((m, index) => <Message key={index} message={m.message} id={m.id} />)
     let newMessageBody = state.newMessageBody
 // console.log(props.store.getState())
     // let newMessageElement = React.createRef<HTMLTextAreaElement>()
@@ -54,8 +57,8 @@ const Dialogs = (props: PropsType) => {
         props.addNewMessage()
         // props.dispatch(sendMessageCreator())
     }
-
-
+    // if (props.isAuth === false) return <Redirect to={'/login'}/>
+    
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItems}>

@@ -7,3 +7,11 @@
     grid-area: h;
     background-color: blue;
   }
+
+  .loginBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* float: right; */
+    
+  }

@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header/Header';
 import Navigation from './components/Navigation/Navigation';
 import Dialogs from './pages/Dialogs/Dialogs';
 import Profile from './pages/Profile/Profile';
@@ -15,6 +14,10 @@ import { ActionsTypes, AppReduxStateType, rootReducer } from './redux/redux-stor
 import { ProfileReducerPropsType } from './redux/Profile-reducer';
 import { DialogsReducerPropsType } from './redux/Dialogs-reducer';
 import { EmptyObject } from 'redux';
+import UsersContainer from './components/Users/Users-container';
+import ProfileContainer from './pages/Profile/ProfileContainer';
+import HeaderContainer from './components/Header/HeaderContainer';
+import Login from './components/Login/Login';
 
 
 type StoreTypes = {
@@ -62,15 +65,17 @@ function App(props: StoreTypes) {
   return (
     <BrowserRouter>
       <div className="app-wraper">
-        <Header />
+        <HeaderContainer />
         <Navigation />
         <div className='app-wrapper-content'>
-          <Route path='/profile' render={() => <Profile  />} />
+          <Route path='/profile/:userId?' render={() => <ProfileContainer  />} />
           <Route path='/dialogs' render={() => <DialogsContainer  />} />
+          <Route path='/users' render={() => <UsersContainer/>}/>
           <Route path='/news' component={News} />
           <Route path='/music' component={Music} />
           <Route path='/settings' component={Settings} />
           <Route path='/friends' component={Friends} />
+          <Route path='/login' component={Login} />
         </div>
       </div>
     </BrowserRouter>

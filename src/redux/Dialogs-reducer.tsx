@@ -1,7 +1,7 @@
 import { DialogType, MessageType } from "..";
 import { ActionsTypes } from "./redux-store";
 
-let initialState = {
+let initialState : DialogsReducerPropsType = {
   DialogsData: [{
     id: '1',
     name: 'Sergey'
@@ -71,15 +71,12 @@ const dialogReducer = (state: DialogsReducerPropsType = initialState, action: Ac
     switch (action.type) {
         case 'NEW-MESSAGE-BODY':
             state.newMessageBody = action.body;
-            return state
+            return {...state}
         case 'SEND-MESSAGE':
             let body = state.newMessageBody
             state.newMessageBody = '';
-            state.MessagesData.push({
-                id: '7',
-                message: body
-            })
-            return state
+            
+            return {...state, MessagesData: [...state.MessagesData, {id: `${state.MessagesData.length}`, message: body }]}
             default:
                 return state
     }

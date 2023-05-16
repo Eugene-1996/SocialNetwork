@@ -1,10 +1,11 @@
+import { connect } from 'react-redux';
 import React from 'react';
-import { addPostActionCreator, updateNewPostActionCreator } from '../../../redux/Profile-reducer';
+import { addPostActionCreator, ProfileReducerPropsType, updateNewPostAC } from '../../../redux/Profile-reducer';
 import { AppReduxStateType, store } from '../../../redux/redux-store';
-import { StoreContext } from '../../../StoreContext';
 import MyPosts from './MyPosts';
 import classes from './myposts-style.module.css'
 import Post from './Post/Post';
+import { Dispatch } from 'redux';
 
 // export type MyPostsContainerTypes = {
 //     // PostsData: Array<PostType>
@@ -22,33 +23,72 @@ export type PostType = {
 
 
 
-const MyPostsContainer = () => {
+// const MyPostsContainer = () => {
 
 
-    // let state = props.state
+//     // let state = props.state
 
 
 
-    return (
-        <StoreContext.Consumer> 
-            {
-            (store) => {
+//     return (
+//         <StoreContext.Consumer> 
+//             {
+//             (store) => {
 
-                let state = store.getState().ProfilePage
-                let addPost = () => {
-                    store.dispatch(addPostActionCreator())
-                }
+//                 let state = store.getState().ProfilePage
+//                 let addPost = () => {
+//                     store.dispatch(addPostActionCreator())
+//                 }
 
-                let onPostChange = (text: string) => {
-                    store.dispatch(updateNewPostActionCreator(text))
-                }
+//                 let onPostChange = (text: string) => {
+//                     store.dispatch(updateNewPostActionCreator(text))
+//                 }
 
 
-                return <MyPosts updateNewPostText={onPostChange} addPost={addPost} newPostText={state.newPostText} PostsData={state.PostsData} />
-            }
+//                 return <MyPosts updateNewPostText={onPostChange} addPost={addPost} newPostText={state.newPostText} PostsData={state.PostsData} />
+//             }
+//         }
+//         </StoreContext.Consumer>
+//     );
+// };
+
+
+type MapStatePropsType = {
+    ProfilePage : Array<PostType> 
+    newPostText : string
+}
+
+type MapDispatchPropsType = {
+    addPost : () => void
+    onPostChange : (text: string) => void
+}
+
+export type MyPostStatePropsType = MapStatePropsType & MapDispatchPropsType
+
+let MapStateToProps = (state: AppReduxStateType) : MapStatePropsType => {
+    return {
+        ProfilePage: state.ProfilePage.PostsData,
+        newPostText: state.ProfilePage.newPostText
+        
+    }
+}
+
+let MapDispatchToProps = (dispatch: Dispatch) : MapDispatchPropsType => {
+    return {
+        addPost : () => {
+            dispatch(addPostActionCreator())
+        },
+        onPostChange : (text: string) => {
+            
+            dispatch(updateNewPostAC(text))
         }
-        </StoreContext.Consumer>
-    );
-};
 
-export default MyPostsContainer;
+    }
+}
+
+
+const SuperMyPostContainer = connect(MapStateToProps, MapDispatchToProps)(MyPosts)
+
+
+
+export default SuperMyPostContainer;

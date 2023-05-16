@@ -1,10 +1,12 @@
 import React from 'react';
 import { AppStateTypes2 } from '../../App';
 import { AppReduxStateType } from '../../redux/redux-store';
-import MyPostsContainer from './MyPosts/MyPostContainer';
+import SuperMyPostContainer from './MyPosts/MyPostContainer';
 import MyPosts from './MyPosts/MyPosts';
+import { CommonPropsType, ProfileDataType } from './ProfileContainer';
 // import classes from './profile-style.module.css'
 import ProfileInfo from './ProfileInfo/ProfileInfo';
+import { Redirect } from 'react-router-dom';
 
 // export type MyPostsTypes = {
 //     state: AppReduxStateType
@@ -25,15 +27,18 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
   
   }
 
-const Profile = () => {
+  export type ProfileProps = {
+    profile: ProfileDataType
+  }
 
+const Profile = (props: CommonPropsType) => {
 
 
     return (
         <>
             <div>
-                <ProfileInfo />
-                <MyPostsContainer  />
+                <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
+                <SuperMyPostContainer  />
             </div>
         </>
     );

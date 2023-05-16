@@ -1,5 +1,5 @@
 import React from 'react';
-import { addPostActionCreator, updateNewPostActionCreator } from '../../../redux/Profile-reducer';
+import { MyPostStatePropsType } from './MyPostContainer';
 import classes from './myposts-style.module.css'
 import Post from './Post/Post';
 
@@ -20,17 +20,18 @@ export type PostType = {
 
 
 
-const MyPosts = (props: MyPostsTypes) => {
+const MyPosts = (props: MyPostStatePropsType) => {
 
 
 
-    let PostsElements = props.PostsData.map((p, index) => <Post key={index} message={p.message} like={p.likesCount} />)
+    let PostsElements = props.ProfilePage.map((p, index) => <Post key={index} message={p.message} like={p.likesCount} />)
 
 
     let newPostElement = React.createRef<HTMLTextAreaElement>();
     // const newPostElement = useRef<HTMLTextAreaElement>(null)
 
     let onAddPost = () => {
+        console.log('onAddPost' ,  newPostElement.current!.value )
         props.addPost()
         
         // props.dispatch( addPostActionCreator() )
@@ -39,7 +40,7 @@ const MyPosts = (props: MyPostsTypes) => {
 
     let onPostChange = () => {
         let text = newPostElement.current!.value
-        props.updateNewPostText(text)
+        props.onPostChange(text)
         // props.dispatch(updateNewPostActionCreator(text))
         
     }
@@ -50,7 +51,7 @@ const MyPosts = (props: MyPostsTypes) => {
             <h4>My Posts</h4>
             <div>
                 <div>
-                    <textarea onChange={onPostChange} ref={newPostElement} value={props.newPostText} />
+                <textarea onChange={onPostChange} value={props.newPostText}  ref={newPostElement} />
                 </div>
                 <div>
                     <button onClick={onAddPost}>Add post</button>

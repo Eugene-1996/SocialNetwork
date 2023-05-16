@@ -7,8 +7,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import  { Provider } from './StoreContext';
-
+// import  { Provider } from './StoreContext';
+import {Provider} from 'react-redux'
 
 export type AppStateTypes = {
   _state: {
@@ -72,25 +72,24 @@ export type StatePropsType = {
   
   
 
-let rerenderEntireTree = (state: AppReduxStateType) => {
+// let rerenderEntireTree = () => {
   ReactDOM.render(
     <Provider store={store}>
     <App />
   </Provider>, document.getElementById('root')
   );
-}
+// }
 // type renderPropsType = {
 //   state: AppStateTypes['state']
 // }
 
 
 
-rerenderEntireTree(store.getState())
+// rerenderEntireTree()
 
-store.subscribe(() => {
-  let state  = store.getState()
-  rerenderEntireTree(state)
-})
+// store.subscribe(() => {
+//   rerenderEntireTree()
+// })
 
 // ReactDOM.render(<App PostsData={PostsData} DialogsData={DialogsData} MessagesData={MessagesData}/>,document.getElementById('root')
 // );
